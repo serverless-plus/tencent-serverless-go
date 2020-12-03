@@ -1,31 +1,13 @@
-## Tencent Serverless Go
-
-[![go.dev reference](https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white&style=flat-square)](https://pkg.go.dev/github.com/serverless-plus/tencent-serverless-go/gin?tab=doc)
-
-## Getting started
-
-The first step is to install the required dependencies
-
-```bash
-# First, we install the Lambda go libraries
-$ go get github.com/serverless-plus/tencent-serverless-go/events
-$ go get github.com/serverless-plus/tencent-serverless-go/faas
-
-# Next, we install the gin library
-$ go get github.com/serverless-plus/tencent-serverless-go/gin
-```
-
-```go
 package main
 
 import (
-  "context"
-  "fmt"
+	"context"
+	"fmt"
 
+	"github.com/gin-gonic/gin"
 	"github.com/serverless-plus/tencent-serverless-go/events"
 	"github.com/serverless-plus/tencent-serverless-go/faas"
-	"github.com/serverless-plus/tencent-serverless-go/gin"
-	"github.com/gin-gonic/gin"
+	ginadapter "github.com/serverless-plus/tencent-serverless-go/gin"
 )
 
 var ginFaas *ginadapter.GinFaas
@@ -44,6 +26,7 @@ func init() {
 	ginFaas = ginadapter.New(r)
 }
 
+// Handler serverless faas handler
 func Handler(ctx context.Context, req events.APIGatewayRequest) (events.APIGatewayResponse, error) {
 	var res, _ = ginFaas.ProxyWithContext(ctx, req)
   var apiRes = events.APIGatewayResponse{Body: res.Body, StatusCode: 200}
@@ -58,10 +41,6 @@ func Handler(ctx context.Context, req events.APIGatewayRequest) (events.APIGatew
 func main() {
   faas.Start(Handler)
 }
-```
 
-## License
 
-This library is licensed under the Apache 2.0 License.
 
-Copyright 2020 Serverless Plus

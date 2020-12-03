@@ -1,0 +1,24 @@
+component: scf
+name: gindemo
+
+inputs:
+  src:
+    src: ./
+    exclude:
+      - .env
+  region: ap-guangzhou
+  runtime: Go1
+  handler: main
+  events:
+    - apigw:
+        parameters:
+          protocols:
+            - http
+            - https
+          environment: release
+          endpoints:
+            - path: /
+              method: ANY
+              function:
+                isIntegratedResponse: true
+                functionQualifier: $DEFAULT
