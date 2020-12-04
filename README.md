@@ -7,11 +7,8 @@
 The first step is to install the required dependencies
 
 ```bash
-# First, we install the Lambda go libraries
 $ go get github.com/serverless-plus/tencent-serverless-go/events
 $ go get github.com/serverless-plus/tencent-serverless-go/faas
-
-# Next, we install the gin library
 $ go get github.com/serverless-plus/tencent-serverless-go/gin
 ```
 
