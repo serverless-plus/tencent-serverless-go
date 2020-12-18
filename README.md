@@ -28,8 +28,7 @@ import (
 var ginFaas *ginadapter.GinFaas
 
 func init() {
-	// stdout and stderr are sent to AWS CloudWatch Logs
-	fmt.Printf("Gin cold start")
+	fmt.Printf("Gin start")
 	r := gin.Default()
 	r.GET("/", func(c *gin.Context) {
 		c.JSON(200, gin.H{
