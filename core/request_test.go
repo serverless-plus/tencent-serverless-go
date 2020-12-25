@@ -8,9 +8,9 @@ import (
 	"os"
 	"strings"
 
-	"github.com/serverless-plus/tencent-serverless-go/events"
 	faascontext "github.com/serverless-plus/tencent-serverless-go/context"
 	"github.com/serverless-plus/tencent-serverless-go/core"
+	"github.com/serverless-plus/tencent-serverless-go/events"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -79,7 +79,7 @@ var _ = Describe("RequestAccessor tests", func() {
 			Expect(1).To(Equal(len(query)))
 			Expect(query["hello"]).ToNot(BeNil())
 			Expect(2).To(Equal(len(query["hello"])))
-			Expect([]string{"1","2"}).To(Equal(query["hello"]))
+			Expect([]string{"1", "2"}).To(Equal(query["hello"]))
 		})
 
 		svhRequest := getProxyRequest("/hello", "GET")
@@ -228,16 +228,16 @@ var _ = Describe("RequestAccessor tests", func() {
 
 func getProxyRequest(path string, method string) events.APIGatewayRequest {
 	return events.APIGatewayRequest{
-		Path:       path,
+		Path:   path,
 		Method: method,
 	}
 }
 
 func getRequestContext() events.APIGatewayRequestContext {
 	return events.APIGatewayRequestContext{
-		RequestID:  "x",
-		Stage:      "prod",
-		SourceIP: 	"127.0.0.1",
+		RequestID: "x",
+		Stage:     "prod",
+		SourceIP:  "127.0.0.1",
 	}
 }
 

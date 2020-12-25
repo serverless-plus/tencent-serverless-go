@@ -3,22 +3,26 @@ package faas
 import (
 	"context"
 	"encoding/json"
+	"os"
 	"reflect"
 	"time"
-        "os"
-	"github.com/serverless-plus/tencent-serverless-go/faas/messages"
+
 	faascontext "github.com/serverless-plus/tencent-serverless-go/context"
+	"github.com/serverless-plus/tencent-serverless-go/faas/messages"
 )
 
+// Function funciton
 type Function struct {
 	handler Handler
 }
 
+// Ping ping request
 func (fn *Function) Ping(req *messages.PingRequest, response *messages.PingResponse) error {
 	*response = messages.PingResponse{}
 	return nil
 }
 
+// Invoke invoke function
 func (fn *Function) Invoke(req *messages.InvokeRequest, response *messages.InvokeResponse) error {
 	defer func() {
 		if err := recover(); err != nil {
@@ -53,14 +57,14 @@ func (fn *Function) Invoke(req *messages.InvokeRequest, response *messages.Invok
 		}
 	}
 
-        if len(req.Environment) > 0 {
+	if len(req.Environment) > 0 {
 		if err := json.Unmarshal([]byte(req.Environment), &lc.Environment); err != nil {
 			response.Error = functionErrorResponse(err)
 			return nil
 		}
-                for key, value := range lc.Environment {
-                    os.Setenv(key, value)
-                }
+		for key, value := range lc.Environment {
+			os.Setenv(key, value)
+		}
 	}
 
 	invokeContext = faascontext.NewContext(invokeContext, lc)

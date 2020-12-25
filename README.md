@@ -42,12 +42,7 @@ func init() {
 
 func Handler(ctx context.Context, req events.APIGatewayRequest) (events.APIGatewayResponse, error) {
 	var res, _ = ginFaas.ProxyWithContext(ctx, req)
-  var apiRes = events.APIGatewayResponse{Body: res.Body, StatusCode: 200}
-  apiRes.Headers = res.Headers
-  if (apiRes.Headers == nil) {
-    apiRes.Headers = make(map[string]string)
-    apiRes.Headers["Content-Type"] = "application/json"
-  }
+  var apiRes = events.APIGatewayResponse{Body: res.Body, StatusCode: 200, Headers: res.Headers}
   return apiRes, nil
 }
 

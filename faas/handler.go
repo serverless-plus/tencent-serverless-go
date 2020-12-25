@@ -7,6 +7,7 @@ import (
 	"reflect"
 )
 
+// Handler handler
 type Handler interface {
 	Invoke(ctx context.Context, payload []byte) ([]byte, error)
 }

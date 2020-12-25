@@ -20,13 +20,13 @@ type APIGatewayRequestContext struct {
 
 // APIGatewayRequest represents an API gateway request
 type APIGatewayRequest struct {
-	Headers     map[string]string        				`json:"headers"`
-	Method      string                   `json:"httpMethod"`
-	Path        string                   `json:"path"`
-	QueryString APIGatewayQueryString    `json:"queryString"`
-	Body        string                   `json:"body"`
-	Context     APIGatewayRequestContext `json:"requestContext"`
-	IsBase64Encoded bool              `json:"isBase64Encoded"`
+	Headers         map[string]string        `json:"headers"`
+	Method          string                   `json:"httpMethod"`
+	Path            string                   `json:"path"`
+	QueryString     APIGatewayQueryString    `json:"queryString"`
+	Body            string                   `json:"body"`
+	Context         APIGatewayRequestContext `json:"requestContext"`
+	IsBase64Encoded bool                     `json:"isBase64Encoded"`
 
 	// the following fields are ignored
 	// HeaderParameters      interface{} `json:"headerParameters"`

@@ -105,15 +105,17 @@ func (r *ProxyResponseWriter) GetProxyResponse() (events.APIGatewayResponse, err
 	}
 
 	var headers = make(map[string]string)
+	headers["Content-Type"] = "application/json"
+
 	var resHeaders = http.Header(r.headers)
 	for k, v := range resHeaders {
 		headers[k] = v[0]
 	}
 
 	return events.APIGatewayResponse{
-		StatusCode:        r.status,
-		Headers: 					 headers,
-		Body:              output,
-		IsBase64Encoded:   isBase64,
+		StatusCode:      r.status,
+		Headers:         headers,
+		Body:            output,
+		IsBase64Encoded: isBase64,
 	}, nil
 }

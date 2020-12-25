@@ -19,4 +19,3 @@ var _ = Describe("Events tests", func() {
 		})
 	})
 })
-

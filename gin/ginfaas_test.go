@@ -4,9 +4,9 @@ import (
 	"context"
 	"log"
 
+	"github.com/gin-gonic/gin"
 	"github.com/serverless-plus/tencent-serverless-go/events"
 	ginadapter "github.com/serverless-plus/tencent-serverless-go/gin"
-	"github.com/gin-gonic/gin"
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
@@ -27,7 +27,7 @@ var _ = Describe("GinLambda tests", func() {
 			adapter := ginadapter.New(r)
 
 			req := events.APIGatewayRequest{
-				Path:       "/ping",
+				Path:   "/ping",
 				Method: "GET",
 			}
 

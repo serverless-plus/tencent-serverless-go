@@ -4,9 +4,9 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/serverless-plus/tencent-serverless-go/events"
-	"github.com/serverless-plus/tencent-serverless-go/core"
 	"github.com/gin-gonic/gin"
+	"github.com/serverless-plus/tencent-serverless-go/core"
+	"github.com/serverless-plus/tencent-serverless-go/events"
 )
 
 // GinFaas makes it easy to send API Gateway proxy events to a Gin

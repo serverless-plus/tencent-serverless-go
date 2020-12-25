@@ -15,8 +15,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/serverless-plus/tencent-serverless-go/events"
 	faascontext "github.com/serverless-plus/tencent-serverless-go/context"
+	"github.com/serverless-plus/tencent-serverless-go/events"
 )
 
 // CustomHostVariable is the name of the environment variable that contains
@@ -224,6 +224,6 @@ func GetRuntimeContextFromContext(ctx context.Context) (*faascontext.FunctionCon
 type ctxKey struct{}
 
 type requestContext struct {
-	faasContext       *faascontext.FunctionContext
+	faasContext         *faascontext.FunctionContext
 	gatewayProxyContext events.APIGatewayRequestContext
 }

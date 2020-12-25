@@ -17,8 +17,8 @@ func init() {
 	r := gin.Default()
 	r.GET("/", func(c *gin.Context) {
 		c.JSON(200, gin.H{
-      "message": "Hello Serverless Gin",
-      "query": c.Query("q"),
+			"message": "Hello Serverless Gin",
+			"query":   c.Query("q"),
 		})
 	})
 
@@ -27,19 +27,9 @@ func init() {
 
 // Handler serverless faas handler
 func Handler(ctx context.Context, req events.APIGatewayRequest) (events.APIGatewayResponse, error) {
-	var res, _ = ginFaas.ProxyWithContext(ctx, req)
-  var apiRes = events.APIGatewayResponse{Body: res.Body, StatusCode: 200}
-  apiRes.Headers = res.Headers
-  if (apiRes.Headers == nil) {
-    apiRes.Headers = make(map[string]string)
-    apiRes.Headers["Content-Type"] = "application/json"
-  }
-  return apiRes, nil
+	return ginFaas.ProxyWithContext(ctx, req)
 }
 
 func main() {
-  faas.Start(Handler)
+	faas.Start(Handler)
 }
-
-
-
