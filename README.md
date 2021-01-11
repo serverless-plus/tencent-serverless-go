@@ -93,6 +93,10 @@ func main() {
 }
 ```
 
+the example can be found in `./example/beego`, after `make` in that directory, you can get an accessable url of the deployment, for example: 
+
+[https://service-5tlgahl8-1256777886.gz.apigw.tencentcs.com/release/](https://service-5tlgahl8-1256777886.gz.apigw.tencentcs.com/release/)
+
 ### Migrate Beego application
 
 you can also migrate your beego application with one step:
@@ -101,7 +105,7 @@ you can also migrate your beego application with one step:
 // Replace:
 // web.Run()
 // To:
-// beegoadapter.Run(web.BeeApp)
+beegoadapter.Run(web.BeeApp)
 ```
 
 ## License
