@@ -7,7 +7,7 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-func TestGin(t *testing.T) {
+func TestBeego(t *testing.T) {
 	RegisterFailHandler(Fail)
 	RunSpecs(t, "Beego Adapter Suite")
 }
