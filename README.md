@@ -2,6 +2,7 @@
 
 [TOC]
 
+[![Build Status](https://github.com/serverless-plus/tencent-serverless-go/workflows/Test/badge.svg?branch=master)](https://github.com/serverless-plus/tencent-serverless-go/actions?query=workflow:Test+branch:master)
 [![go.dev reference](https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white&style=flat-square)](https://pkg.go.dev/github.com/serverless-plus/tencent-serverless-go/gin?tab=doc)
 
 
