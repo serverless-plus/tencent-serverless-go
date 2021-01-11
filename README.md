@@ -1,8 +1,11 @@
 ## Tencent Serverless Go
 
+[TOC]
+
 [![go.dev reference](https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white&style=flat-square)](https://pkg.go.dev/github.com/serverless-plus/tencent-serverless-go/gin?tab=doc)
 
-## Getting started
+
+## Getting started (Gin)
 
 The first step is to install the required dependencies
 
@@ -49,6 +52,56 @@ func Handler(ctx context.Context, req events.APIGatewayRequest) (events.APIGatew
 func main() {
   faas.Start(Handler)
 }
+```
+
+
+
+## Getting started (Beego)
+
+The first step is to install the required dependencies
+
+```bash
+$ go get github.com/serverless-plus/tencent-serverless-go/events
+$ go get github.com/serverless-plus/tencent-serverless-go/faas
+$ go get github.com/serverless-plus/tencent-serverless-go/beego
+```
+
+```go
+package main
+
+import (
+	"github.com/beego/beego/v2/server/web"
+	beegoadapter "github.com/serverless-plus/tencent-serverless-go/beego"
+)
+
+// Controller is controller for BeegoApp
+type Controller struct {
+	web.Controller
+}
+
+// Hello is Handler for "GET /" Route
+func (ctrl *Controller) Hello() {
+	ctrl.Ctx.Output.Body([]byte("Hello Serverless Beego"))
+}
+
+func main() {
+
+	ctrl := &Controller{}
+
+	web.Router("/", ctrl, "get:Hello")
+	beegoadapter.Run(web.BeeApp)
+}
+```
+
+### Migrate Beego application
+
+you can also migrate your beego application with one step:
+
+```go
+// Replace:
+// web.Run()
+// To:
+// beegoadapter.Run(web.BeeApp)
 ```
 
 ## License
