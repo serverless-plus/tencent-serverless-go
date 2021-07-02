@@ -5,8 +5,16 @@
 [![Build Status](https://github.com/serverless-plus/tencent-serverless-go/workflows/Test/badge.svg?branch=master)](https://github.com/serverless-plus/tencent-serverless-go/actions?query=workflow:Test+branch:master)
 [![go.dev reference](https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white&style=flat-square)](https://pkg.go.dev/github.com/serverless-plus/tencent-serverless-go/gin?tab=doc)
 
+## Usage
 
-## Getting started (Gin)
+Support Web Framework:
+
+- [gin](#gin)
+- [beego](#beego)
+- [chi](#chi)
+### gin
+
+[Example](./example/gin)
 
 The first step is to install the required dependencies
 
@@ -20,8 +28,8 @@ $ go get github.com/serverless-plus/tencent-serverless-go/gin
 package main
 
 import (
-  "context"
-  "fmt"
+	"context"
+	"fmt"
 
 	"github.com/serverless-plus/tencent-serverless-go/events"
 	"github.com/serverless-plus/tencent-serverless-go/faas"
@@ -36,8 +44,8 @@ func init() {
 	r := gin.Default()
 	r.GET("/", func(c *gin.Context) {
 		c.JSON(200, gin.H{
-      "message": "Hello Serverless Gin",
-      "query": c.Query("q"),
+			"message": "Hello Serverless Gin",
+			"query": c.Query("q"),
 		})
 	})
 
@@ -46,18 +54,18 @@ func init() {
 
 func Handler(ctx context.Context, req events.APIGatewayRequest) (events.APIGatewayResponse, error) {
 	var res, _ = ginFaas.ProxyWithContext(ctx, req)
-  var apiRes = events.APIGatewayResponse{Body: res.Body, StatusCode: 200, Headers: res.Headers}
-  return apiRes, nil
+	var apiRes = events.APIGatewayResponse{Body: res.Body, StatusCode: 200, Headers: res.Headers}
+	return apiRes, nil
 }
 
 func main() {
-  faas.Start(Handler)
+	faas.Start(Handler)
 }
 ```
 
+### beego
 
-
-## Getting started (Beego)
+[Example](./example/beego)
 
 The first step is to install the required dependencies
 
@@ -94,19 +102,60 @@ func main() {
 }
 ```
 
-the example can be found in `./example/beego`, after `make` in that directory, you can get an accessable url of the deployment, for example: 
+### chi
 
-[https://service-5tlgahl8-1256777886.gz.apigw.tencentcs.com/release/](https://service-5tlgahl8-1256777886.gz.apigw.tencentcs.com/release/)
+[Example](./example/chi)
 
-### Migrate Beego application
+The first step is to install the required dependencies
 
-you can also migrate your beego application with one step:
+```bash
+$ go get github.com/serverless-plus/tencent-serverless-go/events
+$ go get github.com/serverless-plus/tencent-serverless-go/faas
+$ go get github.com/serverless-plus/tencent-serverless-go/chi
+```
 
 ```go
-// Replace:
-// web.Run()
-// To:
-beegoadapter.Run(web.BeeApp)
+package main
+
+import (
+	"context"
+	"encoding/json"
+	"fmt"
+	"net/http"
+
+	"github.com/go-chi/chi/v5"
+	chiadapter "github.com/serverless-plus/tencent-serverless-go/chi"
+	"github.com/serverless-plus/tencent-serverless-go/events"
+	"github.com/serverless-plus/tencent-serverless-go/faas"
+)
+
+var chiFaas *chiadapter.ChiFaas
+
+func init() {
+	fmt.Printf("Chi start")
+	r := chi.NewRouter()
+	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(200)
+		buf, _ := json.Marshal(map[string]interface{}{
+			"message": "Hello Serverless Chi",
+			"query":   r.URL.Query().Get("q"),
+		})
+		w.Write(buf)
+	})
+
+	chiFaas = chiadapter.New(r)
+}
+
+// Handler serverless faas handler
+func Handler(ctx context.Context, req events.APIGatewayRequest) (events.APIGatewayResponse, error) {
+	return chiFaas.ProxyWithContext(ctx, req)
+}
+
+func main() {
+	faas.Start(Handler)
+}
+
 ```
 
 ## License
